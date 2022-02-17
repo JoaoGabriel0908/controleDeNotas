@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#E9967A</color>
+    <color name="background">#21A595</color>
     <color name="titulo">#4682B4</color>
+    <color name="calcular">#116526</color>
+    <color name="sair">#CF0C0C</color>
 </resources>

@@ -7,6 +7,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 
+private lateinit var nomeEditText: EditText
+private lateinit var nota1EditText:EditText
+private lateinit var nota2EditText:EditText
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,29 +20,50 @@ class MainActivity : AppCompatActivity() {
         val sair = findViewById<Button>(R.id.sair)
 
         calcular.setOnClickListener {
-            val nota1 = findViewById<EditText>(R.id.nota1).text.toString().toInt()  //resgatando os valores inseridos pelo usuário
-            val nota2 = findViewById<EditText>(R.id.nota2).text.toString().toInt()
-            val faltas = findViewById<EditText>(R.id.faltas).text.toString().toInt()
-            val relatorio = findViewById<TextView>(R.id.relatorio)
+            nota1EditText = findViewById<EditText>(R.id.nota1) //resgatando os valores inseridos pelo usuário
+            nota2EditText = findViewById<EditText>(R.id.nota2)
+            nomeEditText = findViewById<EditText>(R.id.nome)
+
+            val resultado = findViewById<TextView>(R.id.resultado)
             val situacao = findViewById<TextView>(R.id.situacao)
 
-            val media = (nota1 + nota2) / 2
+            /*Se estiver tudo validado corretamente, essa função será executada aqui*/
+            if (validarCampos()) {
+                val nota1 = nota1EditText.text.toString().toInt()
+                val nota2 = nota2EditText.text.toString().toInt()
+                val nome = nomeEditText.text.toString()
 
-            relatorio.text = "Relatório final: \n Nota 1: ${nota1} \n Nota 2: ${nota2} \n Faltas: ${faltas} \n Média: ${media} \n "
+                val media = calcularMedia(nota1, nota2)
 
-            if (media >=5) {
-                situacao.text = "Aprovado!"
-                situacao.setTextColor(Color.GREEN)
-            } else {
-                situacao.text = "Reprovado!"
-                situacao.setTextColor(Color.RED)
+                resultado.text = situacaoAluno(media)
+
             }
-
-
         }
 
         sair.setOnClickListener {
             finish()
         }
+    }
+
+    private fun calcularMedia(nota1: Int, nota2: Int): Int {
+        return (nota1 + nota2) / 2
+    }
+
+    private fun validarCampos(): Boolean {
+        /*Validando o campo do nome*/
+        var noError = true
+        if (nomeEditText.text.isBlank()){
+            nomeEditText.setError("Digite seu nome!")
+            noError = false
+        }
+        if(nota1EditText.text.isBlank()){
+            nota1EditText.setError("Digite a nota 1")
+            noError = false
+        }
+        if (nota2EditText.text.isBlank()){
+            nota2EditText.setError("Digite a nota 2")
+            noError = false
+        }
+        return noError
     }
 }

@@ -11,4 +11,5 @@
     <color name="titulo">#4682B4</color>
     <color name="calcular">#116526</color>
     <color name="sair">#CF0C0C</color>
+    <color name="dark">#000000</color>
 </resources>
